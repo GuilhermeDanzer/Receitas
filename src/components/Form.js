@@ -2,15 +2,33 @@ import React, { useState } from "react";
 import { Input } from "./Input";
 import styled from "styled-components";
 
+const Wrapper = styled.div`
+  display: flex;
+  width: 100%;
+  padding: 20px;
+`;
+const Titulo = styled.h2`
+  text-align: center;
+`;
 const FormContainer = styled.div`
   background-color: #fff;
   min-height: 500px;
-  width: 50%;
+  flex: 3;
   border-radius: 20px;
   margin-top: 20px;
   overflow: hidden;
 `;
+const RecipeContainer = styled.div`
+  background-color: #fff;
 
+    margin-left: 10px;
+    border-radius: 20px;
+    margin-top: 20px;
+    overflow: hidden;
+
+    flex: 1;
+}
+`;
 const FormContent = styled.div`
   display: flex;
   flex-direction: column;
@@ -32,6 +50,7 @@ const Row = styled.div`
 const InputContainer = styled.div`
   display: flex;
   flex-direction: column;
+  margin-bottom: 2px;
 `;
 
 const Botao = styled.button`
@@ -68,47 +87,46 @@ export const Form = () => {
 
   console.log(values);
   return (
-    <FormContainer>
-      <FormContent>
-        <Label>Nome da Receita</Label>
-        <Input />
-        <Row></Row>
-        <Label>Nome da Receita</Label>
-        <Input />
+    <Wrapper>
+      <FormContainer>
+        <FormContent>
+          <Label>Nome da Receita</Label>
+          <Input />
 
-        <Row space>
-          <InputContainer>
-            <Label>Porções</Label>
-            <Input
-              style={{ width: 140 }}
-              type="number"
-              onChange={handleChange("porcao")}
-            />
-          </InputContainer>
-          <InputContainer>
-            <Label>Tempo de preparo</Label>
-            <Input type="time" step="600" onChange={handleChange("tempo")} />
-          </InputContainer>
-          <InputContainer>
-            <Label>Ingredientes</Label>
-            <Input
-              value={values.ingrediente}
-              onChange={handleChange("ingrediente")}
-            />
-          </InputContainer>
-          <Botao onClick={() => addIngredient(values.ingrediente)}>
-            Adicionar Ingrediente
-          </Botao>
-        </Row>
-
-        {values.listaIngredientes.map((ingredientes, i) => {
-          return (
-            <div>
-              <p>{ingredientes}</p>
-            </div>
-          );
-        })}
-      </FormContent>
-    </FormContainer>
+          <Row space>
+            <InputContainer>
+              <Label>Porções</Label>
+              <Input
+                style={{ width: 140 }}
+                type="number"
+                onChange={handleChange("porcao")}
+              />
+            </InputContainer>
+            <InputContainer>
+              <Label>Tempo de preparo</Label>
+              <Input type="time" step="600" onChange={handleChange("tempo")} />
+            </InputContainer>
+            <InputContainer>
+              <Label>Ingredientes</Label>
+              <Input
+                value={values.ingrediente}
+                onChange={handleChange("ingrediente")}
+              />
+            </InputContainer>
+            <Botao onClick={() => addIngredient(values.ingrediente)}>
+              Adicionar Ingrediente
+            </Botao>
+          </Row>
+        </FormContent>
+      </FormContainer>
+      <RecipeContainer>
+        <Titulo>Ingredientes</Titulo>
+        <ul>
+          {values.listaIngredientes.map((ingredientes, i) => {
+            return <li>{ingredientes}</li>;
+          })}
+        </ul>
+      </RecipeContainer>
+    </Wrapper>
   );
 };
