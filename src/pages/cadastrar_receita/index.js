@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { IconContext } from "react-icons";
+import { FiTrash2 } from "react-icons/fi";
 import { Input } from "../../components/Input";
 import { Form } from "../../components/Form";
 import { Card } from "../../components/Card";
@@ -8,7 +10,7 @@ import styled from "styled-components";
 const LabelBotao = styled.label`
   font-size: 1.25em;
   font-weight: 700;
-  color: #de7231;
+  color: ${(props) => props.theme.colors.primary};
   cursor: pointer;
 `;
 const Label = styled.span`
@@ -34,12 +36,17 @@ export const Container = styled.div`
   justify-content: center;
   padding: 20px;
 `;
-const Titulo = styled.h2`
+export const Titulo = styled.h2`
   text-align: center;
 `;
 
-const Lista = styled.ul`
+export const Lista = styled.ul`
   list-style-type: ${(props) => (props.order ? "decimal" : "bubble")};
+`;
+
+export const ListaItem = styled.li`
+  position: relative;
+  margin: 10px 0px;
 `;
 const CadastroReceitas = () => {
   const [values, setValues] = useState({
@@ -71,6 +78,21 @@ const CadastroReceitas = () => {
     }
   };
 
+  const deleteIngredient = (ingrediente) => {
+    setValues({
+      ...values,
+      listaIngredientes: values.listaIngredientes.filter(
+        (valor) => valor !== ingrediente
+      ),
+    });
+  };
+
+  const deletePasso = (passos) => {
+    setValues({
+      ...values,
+      listaPassos: values.listaPassos.filter((valor) => valor !== passos),
+    });
+  };
   const imageFunction = (event) => {
     try {
       setValues({ ...values, nomeImagem: event.target.files[0].name });
@@ -131,7 +153,7 @@ const CadastroReceitas = () => {
           <Botao
             center={true}
             style={{ width: 200 }}
-            onClick={() => addIngredient(values.ingrediente)}
+            onClick={() => console.log("finalizou")}
           >
             Finalizar
           </Botao>
@@ -141,7 +163,25 @@ const CadastroReceitas = () => {
         <Titulo>Ingredientes</Titulo>
         <Lista>
           {values.listaIngredientes.map((ingredientes, i) => {
-            return <li key={i}>{ingredientes}</li>;
+            return (
+              <ListaItem key={i}>
+                {ingredientes}{" "}
+                <IconContext.Provider
+                  value={{
+                    style: {
+                      verticalAlign: "middle",
+                      color: "#1DA883 ",
+                      fontSize: 23,
+                      position: "absolute",
+                      right: 20,
+                      cursor: "pointer",
+                    },
+                  }}
+                >
+                  <FiTrash2 onClick={() => deleteIngredient(ingredientes)} />
+                </IconContext.Provider>
+              </ListaItem>
+            );
           })}
         </Lista>
       </Card>
@@ -149,7 +189,25 @@ const CadastroReceitas = () => {
         <Titulo>Passo a Passo</Titulo>
         <Lista order={true}>
           {values.listaPassos.map((passos, i) => {
-            return <li key={i}>{passos}</li>;
+            return (
+              <ListaItem key={i}>
+                {passos}
+                <IconContext.Provider
+                  value={{
+                    style: {
+                      verticalAlign: "middle",
+                      color: "#1DA883 ",
+                      fontSize: 23,
+                      position: "absolute",
+                      right: 20,
+                      cursor: "pointer",
+                    },
+                  }}
+                >
+                  <FiTrash2 onClick={() => deletePasso(passos)} />
+                </IconContext.Provider>
+              </ListaItem>
+            );
           })}
         </Lista>
       </Card>

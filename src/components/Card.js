@@ -11,9 +11,6 @@ const RecipeContainer = styled.div`
     flex: 1;
 }
 `;
-const Titulo = styled.h2`
-  text-align: center;
-`;
 
 export const Card = ({ children }) => {
   return <RecipeContainer>{children}</RecipeContainer>;

@@ -8,7 +8,7 @@ export const Campo = styled.input`
     border-color: #929292;
     background-color: #fff;
     &:focus{
-      border-color:#DE7231
+      border-color:${(props) => props.theme.colors.primary};
     }
 }
   `;

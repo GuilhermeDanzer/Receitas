@@ -6,7 +6,7 @@ export const Botao = styled.button`
   background: transparent;
   border-radius: 20px;
   border: solid 2px;
-  border-color: #de7231;
+  border-color: ${(props) => props.theme.colors.primary};
   margin-top: 5px;
   height: 40px;
 
@@ -16,7 +16,7 @@ export const Botao = styled.button`
 
   &:hover {
     font-weight: bold;
-    background-color: #de7231;
+    background-color: ${(props) => props.theme.colors.primary};
     color: #fff;
   }
 `;

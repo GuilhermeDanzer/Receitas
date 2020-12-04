@@ -31,6 +31,7 @@ const Nav = styled.div`
 `;
 const ItensNav = styled.div`
   transition: all 0.45s ease;
+  cursor: pointer;
   color: #ffffff;
   &&:hover {
     color: #020;
