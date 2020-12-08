@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState, useContext } from "react";
+import { useRouter } from "next/router";
 import styled from "styled-components";
 import { Pesquisa } from "./Input";
 import { IconContext } from "react-icons";
 import { AiOutlineSearch } from "react-icons/ai";
 import Link from "next/link";
+import { Context as ReceitaContext } from "../context/receitaContext";
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -44,6 +46,18 @@ const Texto = styled.p`
 `;
 
 export const Header = () => {
+  const [value, setValue] = useState();
+  const router = useRouter();
+  const handleChange = (prop) => (event) => {
+    setValue({ ...value, [prop]: event.target.value });
+  };
+  const { getReceitaPesquisa, state } = useContext(ReceitaContext);
+
+  const pesquisar = async (termo) => {
+    await getReceitaPesquisa(termo);
+    console.log(state.pesquisaReceitas[0].id);
+    router.push({ pathname: "/receitas", query: state.pesquisaReceitas[0] });
+  };
   return (
     <Wrapper>
       <Nav>
@@ -66,7 +80,14 @@ export const Header = () => {
           >
             <AiOutlineSearch />
           </IconContext.Provider>
-          <Pesquisa />
+          <Pesquisa
+            onChange={handleChange("pesquisa")}
+            onKeyPress={(event) => {
+              if (event.key === "Enter") {
+                pesquisar(value);
+              }
+            }}
+          />
         </ItensNav>
       </Nav>
     </Wrapper>

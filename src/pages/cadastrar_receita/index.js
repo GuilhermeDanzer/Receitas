@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { IconContext } from "react-icons";
 import { FiTrash2 } from "react-icons/fi";
 import { Input } from "../../components/Input";
@@ -6,6 +6,7 @@ import { Form } from "../../components/Form";
 import { Card } from "../../components/Card";
 import { Botao, BotaoUpload } from "../../components/Button";
 import styled from "styled-components";
+import { Context as ReceitaContext } from "../../context/receitaContext";
 
 const LabelBotao = styled.label`
   font-size: 1.25em;
@@ -54,6 +55,20 @@ const CadastroReceitas = () => {
     listaPassos: [],
   });
 
+  const handleImg = (event) => {
+    try {
+      const file = event.target.files[0];
+      console.log(file);
+
+      setValues({
+        ...values,
+        file: file,
+        nomeImagem: event.target.files[0].name,
+      });
+    } catch (err) {
+      alert("Ocorreu um erro com sua seleção de arquivo");
+    }
+  };
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
   };
@@ -100,12 +115,15 @@ const CadastroReceitas = () => {
       console.log("");
     }
   };
+
+  const { postReceita, state } = useContext(ReceitaContext);
+
   return (
     <Container>
       <Form>
         <FormContent>
           <Label>Nome da Receita</Label>
-          <Input />
+          <Input onChange={handleChange("nome")} />
 
           <InputContainer>
             <Label>Porções</Label>
@@ -130,6 +148,11 @@ const CadastroReceitas = () => {
             <Input
               value={values.ingrediente}
               onChange={handleChange("ingrediente")}
+              onKeyPress={(event) => {
+                if (event.key === "Enter") {
+                  addIngredient(values.ingrediente);
+                }
+              }}
             />
           </InputContainer>
           <Botao onClick={() => addIngredient(values.ingrediente)}>
@@ -137,23 +160,31 @@ const CadastroReceitas = () => {
           </Botao>
           <InputContainer>
             <Label>Passo a Passo</Label>
-            <Input value={values.passos} onChange={handleChange("passos")} />
+            <Input
+              value={values.passos}
+              onChange={handleChange("passos")}
+              onKeyPress={(event) => {
+                if (event.key === "Enter") {
+                  addPasso(values.passos);
+                }
+              }}
+            />
           </InputContainer>
           <Botao onClick={() => addPasso(values.passos)}>Adicionar Passo</Botao>
           <BotaoUpload
             accept="image/*"
             type="file"
-            onChange={imageFunction}
+            onChange={handleImg}
             name="file"
             id="file"
           />
-          <LabelBotao for="file">
+          <LabelBotao htmlFor="file">
             {values.nomeImagem ? values.nomeImagem : "Selecione uma imagem"}
           </LabelBotao>
           <Botao
             center={true}
             style={{ width: 200 }}
-            onClick={() => console.log("finalizou")}
+            onClick={() => postReceita(values)}
           >
             Finalizar
           </Botao>

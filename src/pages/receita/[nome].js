@@ -24,7 +24,7 @@ const ImagemDiv = styled.div`
 const Imagem = styled.img`
   width: 100%;
 `;
-const Receitas = ({ receita }) => {
+const Receita = ({ receita }) => {
   console.log(receita);
   return (
     <>
@@ -84,4 +84,4 @@ export const getStaticProps = async (context) => {
     },
   };
 };
-export default Receitas;
+export default Receita;
