@@ -7,7 +7,8 @@ const RecipeContainer = styled.div`
     border-radius: 20px;
     margin-top: 20px;
     overflow: hidden;
-
+    display:flex;
+    flex-direction:column;
     flex: 1;
 }
 `;

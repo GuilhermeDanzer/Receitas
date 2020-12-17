@@ -55,23 +55,22 @@ export const Header = () => {
 
   const pesquisar = async (termo) => {
     await getReceitaPesquisa(termo);
-    console.log(state.pesquisaReceitas[0].id);
-    router.push({ pathname: "/receitas", query: state.pesquisaReceitas[0] });
+    console.log(state.pesquisaReceitas);
+    router.push({ pathname: "/receitas" });
   };
   return (
     <Wrapper>
       <Nav>
-        <ItensNav>
-          <Link href="/">
-            <Texto>Salgados</Texto>
-          </Link>
-        </ItensNav>
-
-        <ItensNav>
-          <Link href="/cadastrar_receita">
-            <Texto>Doces</Texto>
-          </Link>
-        </ItensNav>
+        <Link href="/">
+          <ItensNav>
+            <Texto>Home</Texto>
+          </ItensNav>
+        </Link>
+        <Link href="/cadastrar_receita">
+          <ItensNav>
+            <Texto>Cadastrar Receita</Texto>
+          </ItensNav>
+        </Link>
         <ItensNav>
           <IconContext.Provider
             value={{

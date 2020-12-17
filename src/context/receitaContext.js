@@ -69,7 +69,7 @@ const postReceita = (dispatch) => async (valores) => {
     data.append("nome", nome);
     data.append("tempo", tempo);
     data.append("porcao", porcao);
-    data.append("passos", listaIngredientes);
+    data.append("passos", listaPassos);
     data.append("ingredientes", listaIngredientes);
 
     console.log(data);

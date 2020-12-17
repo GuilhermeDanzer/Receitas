@@ -7,7 +7,8 @@ import {
 import { Card } from "../../components/Card";
 import React from "react";
 import styled from "styled-components";
-import comida4 from "../../assets/comida4.jpg";
+
+import api from "../../api/api";
 const NomeReceita = styled.h1`
   text-align: center;
   color: #fff;
@@ -25,13 +26,14 @@ const Imagem = styled.img`
   width: 100%;
 `;
 const Receita = ({ receita }) => {
-  console.log(receita);
+  const a = receita.passos[0];
+  console.log(a.split(","));
   return (
     <>
       <NomeContainer>
-        <NomeReceita>Bobó de camarão</NomeReceita>
+        <NomeReceita>{receita.nome}</NomeReceita>
         <ImagemDiv>
-          <Imagem src={comida4} alt="tese" />
+          <Imagem src={receita.img} alt="tese" />
         </ImagemDiv>
       </NomeContainer>
 
@@ -39,24 +41,17 @@ const Receita = ({ receita }) => {
         <Card>
           <Titulo>Ingredientes</Titulo>
           <Lista>
-            <ListaItem>Teste</ListaItem>
-            <ListaItem>Teste</ListaItem>
-            <ListaItem>Teste</ListaItem>
-            <ListaItem>Teste</ListaItem>
-            <ListaItem>Teste</ListaItem>
-            <ListaItem>Teste</ListaItem>
+            {receita.ingredientes[0].split(",").map((ingrediente) => {
+              return <ListaItem>{ingrediente}</ListaItem>;
+            })}
           </Lista>
         </Card>
         <Card>
           <Titulo>Passo a Passo</Titulo>
           <Lista order>
-            <ListaItem>Teste</ListaItem>
-            <ListaItem>Teste</ListaItem>
-            <ListaItem>Teste</ListaItem>
-            <ListaItem>Teste</ListaItem>
-            <ListaItem>Teste</ListaItem>
-
-            <ListaItem>Teste</ListaItem>
+            {receita.passos[0].split(",").map((passo) => {
+              return <ListaItem>{passo}</ListaItem>;
+            })}
           </Lista>
         </Card>
       </Container>
@@ -65,10 +60,10 @@ const Receita = ({ receita }) => {
 };
 
 export const getStaticPaths = async () => {
-  const eita = [{ nome: "testa" }, { nome: "teste" }];
+  const response = await api.get("/receitas");
 
-  const paths = eita.map((eitas) => {
-    return { params: { nome: eitas.nome } };
+  const paths = response.data.map((receita) => {
+    return { params: { idReceita: receita.idReceita } };
   });
   return {
     paths,
@@ -76,12 +71,21 @@ export const getStaticPaths = async () => {
   };
 };
 export const getStaticProps = async (context) => {
-  const { nome } = context.params;
+  const { idReceita } = context.params;
+
+  const response = await api.get(`/receita/${idReceita}`);
+
+  /* const response = await fetch(
+    `https://c5787b69ebca.ngrok.io/receita/${idReceita}`
+  );
+  const data = await response.json();
+  console.log(response);*/
 
   return {
     props: {
-      receita: nome,
+      receita: response.data,
     },
+    revalidate: 120,
   };
 };
 export default Receita;

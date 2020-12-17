@@ -76,15 +76,15 @@ const Title = styled.h2`
 export const Display = ({ imagens }) => {
   // const { width } = useWindowDimensions();
   //console.log(width);
+  console.log(imagens);
   return (
     <Grid>
-      {imagens.map((image, i) => {
+      {imagens.receitas.map((image, i) => {
         return (
-          <Link key={i} href="/">
+          <Link key={i} href={`/receita/${image.idReceita}`}>
             <Container>
-              <Imagem img={image.imagem}>
+              <Imagem img={image.img}>
                 <TextoContainer>
-                  <Title>{image.tipo}</Title>
                   <Texto>{image.nome}</Texto>
                   <Title>&nbsp;</Title>
                 </TextoContainer>
