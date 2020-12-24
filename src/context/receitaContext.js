@@ -69,8 +69,12 @@ const postReceita = (dispatch) => async (valores) => {
     data.append("nome", nome);
     data.append("tempo", tempo);
     data.append("porcao", porcao);
-    data.append("passos", listaPassos);
-    data.append("ingredientes", listaIngredientes);
+    listaPassos.forEach((item) => {
+      data.append("passos", item);
+    });
+    listaIngredientes.forEach((item) => {
+      data.append("ingredientes", item);
+    });
 
     console.log(data);
     const response = await api.post("/receitas", data, config);
@@ -78,6 +82,7 @@ const postReceita = (dispatch) => async (valores) => {
     alert(response.data.msg);
     //navigate('Show')
   } catch (error) {
+    console.log(error);
     const erro = error.response.data;
     alert(erro.error);
   }
