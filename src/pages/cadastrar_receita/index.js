@@ -49,6 +49,19 @@ export const ListaItem = styled.li`
   position: relative;
   margin: 10px 0px;
 `;
+
+const ListaItemDiv = styled.div`
+  display: flex;
+  align-items: end;
+`;
+
+const ListaItemTextDiv = styled.div`
+  flex: 3;
+`;
+const IconeDiv = styled.div`
+  flex: 1;
+`;
+
 const CadastroReceitas = () => {
   const [values, setValues] = useState({
     listaIngredientes: [],
@@ -196,21 +209,29 @@ const CadastroReceitas = () => {
           {values.listaIngredientes.map((ingredientes, i) => {
             return (
               <ListaItem key={i}>
-                {ingredientes}{" "}
-                <IconContext.Provider
-                  value={{
-                    style: {
-                      verticalAlign: "middle",
-                      color: "#1DA883 ",
-                      fontSize: 23,
-                      position: "absolute",
-                      right: 20,
-                      cursor: "pointer",
-                    },
-                  }}
-                >
-                  <FiTrash2 onClick={() => deleteIngredient(ingredientes)} />
-                </IconContext.Provider>
+                <ListaItemDiv>
+                  <ListaItemTextDiv>
+                    <p>{ingredientes}</p>
+                  </ListaItemTextDiv>
+                  <IconContext.Provider
+                    value={{
+                      style: {
+                        verticalAlign: "middle",
+                        color: "#1DA883 ",
+                        fontSize: 23,
+                        position: "absolute",
+                        right: 20,
+                        cursor: "pointer",
+                      },
+                    }}
+                  >
+                    <IconeDiv>
+                      <FiTrash2
+                        onClick={() => deleteIngredient(ingredientes)}
+                      />
+                    </IconeDiv>
+                  </IconContext.Provider>
+                </ListaItemDiv>
               </ListaItem>
             );
           })}
@@ -222,21 +243,27 @@ const CadastroReceitas = () => {
           {values.listaPassos.map((passos, i) => {
             return (
               <ListaItem key={i}>
-                {passos}
-                <IconContext.Provider
-                  value={{
-                    style: {
-                      verticalAlign: "middle",
-                      color: "#1DA883 ",
-                      fontSize: 23,
-                      position: "absolute",
-                      right: 20,
-                      cursor: "pointer",
-                    },
-                  }}
-                >
-                  <FiTrash2 onClick={() => deletePasso(passos)} />
-                </IconContext.Provider>
+                <ListaItemDiv>
+                  <ListaItemTextDiv>
+                    <p>{passos}</p>
+                  </ListaItemTextDiv>
+                  <IconContext.Provider
+                    value={{
+                      style: {
+                        verticalAlign: "middle",
+                        color: "#1DA883 ",
+                        fontSize: 23,
+                        position: "absolute",
+                        right: 20,
+                        cursor: "pointer",
+                      },
+                    }}
+                  >
+                    <IconeDiv>
+                      <FiTrash2 onClick={() => deletePasso(passos)} />
+                    </IconeDiv>
+                  </IconContext.Provider>
+                </ListaItemDiv>
               </ListaItem>
             );
           })}
