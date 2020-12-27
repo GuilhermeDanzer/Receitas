@@ -10,18 +10,7 @@ const Titulo = styled.h1`
   color: white;
   padding: 20px;
 `;
-const comida = [
-  { imagem: comida1, tipo: "Fritura", nome: "Peixe Frito" },
-  { imagem: comida2, tipo: "Fritura", nome: "Peixe Frito" },
 
-  { imagem: comida3, tipo: "Fritura", nome: "Peixe Frito" },
-
-  { imagem: comida4, tipo: "Fritura", nome: "Peixe Frito" },
-  { imagem: comida4, tipo: "Fritura", nome: "Peixe Frito" },
-  { imagem: comida4, tipo: "Fritura", nome: "Peixe Frito" },
-  { imagem: comida4, tipo: "Fritura", nome: "Peixe Frito" },
-  { imagem: comida4, tipo: "Fritura", nome: "Peixe Frito" },
-];
 export default function Home(receitas) {
   return (
     <div>

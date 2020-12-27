@@ -5,8 +5,8 @@ import {
   Lista,
   ListaItem,
   Titulo,
-} from "../cadastrar_receita/index";
-import { Card } from "../../components/Card";
+} from "../pages/cadastrar_receita/index";
+import { Card } from "./Card";
 const NomeReceita = styled.h1`
   text-align: center;
   color: #fff;

@@ -13,9 +13,9 @@ const receitaReducer = (state, action) => {
     case "getSearchReceita":
       return { ...state, msg: "Membro editado com sucesso" }; //{...state}
     case "getAllReceitas":
-      return { todasReceitas: action.payload };
+      return { ...state, todasReceitas: action.payload };
     case "getReceitaPesquisa":
-      return { pesquisaReceitas: action.payload };
+      return { ...state, pesquisaReceitas: action.payload };
     default:
       return state;
   }
